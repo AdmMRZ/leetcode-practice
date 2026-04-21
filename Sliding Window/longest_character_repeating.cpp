@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_set>
+#include <map>
+#include <climits>
+using namespace std;
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int l = 0, maxS = 0, maxCount = 0;
+        vector<int> count(26, 0);
+        for (int r = 0; r < s.size(); r++) {
+            count[s[r] - 'A']++;
+            maxCount = max(maxCount, count[s[r] - 'A']);
+            
+            while ((r - l + 1) - maxCount > k) 
+            {
+                count[s[l] - 'A']--;
+                l++;
+            }
+            
+            maxS = max(maxS, r - l + 1);
+        }
+        
+        return maxS;
+    }
+};
